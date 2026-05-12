@@ -36,14 +36,24 @@ export function sortTasks(tasks) {
 }
 
 export function filterTasks(tasks, filter) {
-  if (filter === 'active')  return tasks.filter(t => !t.done)
-  if (filter === 'done')    return tasks.filter(t => t.done)
-  if (filter === 'overdue') return tasks.filter(t => {
-    const s = deadlineStatus(t); return s && s.type === 'overdue'
-  })
-  return tasks
-}
+  return tasks.filter(task => {
 
-export function todayStr() {
-  return new Date().toISOString().slice(0, 10)
+    if (filter === 'all') return true
+    if (filter === 'active') return !task.done
+    if (filter === 'done') return task.done
+
+    if (filter === 'overdue') {
+
+      if (!task.deadline || !task.time || task.done)
+        return false
+
+      const taskDateTime = new Date(
+        `${task.deadline}T${task.time}`
+      )
+
+      return taskDateTime < new Date()
+    }
+
+    return true
+  })
 }
