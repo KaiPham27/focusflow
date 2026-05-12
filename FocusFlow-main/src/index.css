@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+}
+
+@layer utilities {
+  .animate-fadein {
+    animation: fadein 0.2s ease;
+  }
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-popin {
+    animation: popin 0.2s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes popin {
+    from { transform: scale(0.92); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+  .animate-slidedown {
+    animation: slidedown 0.25s ease;
+  }
+  @keyframes slidedown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
